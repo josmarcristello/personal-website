@@ -4,8 +4,11 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
-
+import Welcome from "@/components/Welcome"
+import projectsData from '@/data/projectsData'
 import NewsletterForm from '@/components/NewsletterForm'
+//#import { RoughNotation } from "react-rough-notation"
+import Card from '@/components/Card';
 
 const MAX_DISPLAY = 5
 
@@ -20,6 +23,10 @@ export default function Home({ posts }) {
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
+        <div className="prose space-y-2 pt-6 pb-6 dark:prose-dark md:space-y-5">
+          <Welcome />
+          <h1 className="py-6 text-center "></h1>
+        </div>
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             Latest
@@ -28,6 +35,25 @@ export default function Home({ posts }) {
             {siteMetadata.description}
           </p>
         </div>
+        <div className="content mb-8">
+        <h2 className="mb-2 text-xl font-bold text-zinc-800 dark:text-white">Projects</h2>
+        <p className="max-w-[46ch] leading-relaxed text-zinc-500 dark:text-slate-300">
+          A selection of projects I worked on in the past few years.
+        </p>
+      </div>
+      <div className="container py-12">
+        <div className="-m-4 flex flex-wrap">
+          {projectsData.slice(0,1).map((d) => (
+            <Card
+              key={d.title}
+              title={d.title}
+              description={d.description}
+              imgSrc={d.imgSrc}
+              href={d.href}
+            />
+          ))}
+        </div>
+      </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
           {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
